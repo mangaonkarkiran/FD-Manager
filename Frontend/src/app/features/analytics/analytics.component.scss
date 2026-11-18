@@ -1,0 +1,112 @@
+:host { display: block; }
+
+.analytics-intro {
+  margin: -6px 0 15px;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.analytics-overview .portfolio-stats strong {
+  font-size: 15px;
+}
+
+.analytics-section-heading {
+  margin-top: 21px;
+}
+
+.analytics-charts {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.analytics-chart-panel {
+  min-width: 0;
+  padding: 15px;
+}
+
+.chart-period {
+  flex: 0 0 auto;
+  padding: 5px 8px;
+  border-radius: 7px;
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.allocation-legend {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+  margin-top: 12px;
+}
+
+.allocation-legend span {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  color: var(--ink-soft);
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.allocation-legend i {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: var(--swatch);
+}
+
+.rate-insight {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--blue-soft);
+  color: var(--ink-soft);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.rate-insight strong {
+  color: var(--blue);
+}
+
+.insight-spark,
+.banner-star {
+  color: var(--blue);
+  font-size: 16px;
+  line-height: 1.2;
+}
+
+.chart-empty {
+  display: grid;
+  min-height: 120px;
+  align-content: center;
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 12px;
+  text-align: center;
+}
+
+.insight-banner {
+  padding: 14px;
+}
+
+.insight-banner > div {
+  min-width: 0;
+}
+
+@media (min-width: 760px) {
+  .analytics-charts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}

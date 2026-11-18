@@ -1,0 +1,156 @@
+:host { display: block; }
+
+.verify-screen {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  padding: 12px 20px calc(20px + env(safe-area-inset-bottom));
+}
+
+.verify-screen-header {
+  width: 100%;
+  max-width: 560px;
+  min-height: 42px;
+  align-self: center;
+  margin-bottom: 0;
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.auth-brand .brand-mark {
+  width: 26px;
+  height: 26px;
+  font-size: 14px;
+}
+
+.verify-layout {
+  display: flex;
+  width: 100%;
+  max-width: 440px;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  padding: 26px 0 12px;
+}
+
+.verify-heading {
+  margin-bottom: 16px;
+}
+
+.verify-heading .screen-kicker {
+  margin-bottom: 5px;
+  color: var(--blue);
+}
+
+.verify-heading h1 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 25px;
+  font-weight: 750;
+  letter-spacing: -.7px;
+  line-height: 1.2;
+}
+
+.verify-heading > p:last-child {
+  margin: 6px 0 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.verify-card {
+  display: grid;
+  gap: 12px;
+  padding: 17px;
+}
+
+.verify-number {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 11px;
+  border-radius: 9px;
+  background: var(--blue-soft);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.verify-number button,
+.otp-caption button {
+  padding: 2px 0;
+  border: 0;
+  background: transparent;
+  color: var(--blue);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.verify-card .phone-field {
+  gap: 7px;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.verify-card .otp-input {
+  height: 48px;
+  border-color: var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--ink);
+  letter-spacing: 12px;
+}
+
+.verify-card .otp-input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 12%, transparent);
+}
+
+.verify-card .form-error {
+  margin-top: -7px;
+}
+
+.otp-caption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 8px;
+  margin-top: -4px;
+  color: var(--ink-soft);
+  font-size: 11px;
+}
+
+.otp-caption button {
+  font-size: inherit;
+}
+
+.verify-card .verify-note {
+  margin-top: 1px;
+}
+
+.verify-footer {
+  margin-top: 15px;
+}
+
+.verify-footer .primary-button {
+  min-height: 46px;
+}
+
+.auth-legal {
+  margin: 9px 0 0;
+  color: var(--ink-faint);
+  font-size: 10px;
+  line-height: 1.45;
+  text-align: center;
+}

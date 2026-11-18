@@ -1,0 +1,51 @@
+<section class="screen security-screen">
+  <header class="screen-header">
+    <div class="back-title">
+      <a class="back-action" routerLink="/settings" aria-label="Back to profile and settings"><svg><use href="#icon-back"/></svg></a>
+      <div class="screen-heading"><p class="screen-kicker">PRIVACY FIRST</p><h1>Security</h1></div>
+    </div>
+  </header>
+
+  <article class="card security-banner">
+    <span class="bank-icon"><svg><use href="#icon-shield"/></svg></span>
+    <span class="security-banner-copy"><strong>Your app is protected</strong><small>Keep your financial details private and safe.</small></span>
+  </article>
+
+  <p class="settings-group-title">App access</p>
+  <article class="card security-settings-group">
+    <div class="security-row">
+      <span class="security-row-copy"><strong>Biometric unlock</strong><small>Use your fingerprint or face to sign in.</small></span>
+      <button class="toggle-switch" [class.on]="biometricEnabled()" [attr.aria-pressed]="biometricEnabled()" aria-label="Toggle biometric unlock" (click)="toggleBiometric()"><span></span></button>
+    </div>
+    <button class="security-row settings-action" (click)="showDemoNotice('Changing your app PIN')">
+      <span class="security-row-copy"><strong>App PIN</strong><small>Change your 4-digit passcode.</small></span>
+      <span class="settings-value">Change <svg><use href="#icon-chevron"/></svg></span>
+    </button>
+    <div class="security-row">
+      <span class="security-row-copy"><strong>Auto-lock</strong><small>Lock when you leave the app.</small></span>
+      <button class="toggle-switch" [class.on]="autoLockEnabled()" [attr.aria-pressed]="autoLockEnabled()" aria-label="Toggle auto-lock" (click)="toggleAutoLock()"><span></span></button>
+    </div>
+    <div class="security-row">
+      <span class="security-row-copy"><strong>Hide balance on launch</strong><small>Show balances only when you choose.</small></span>
+      <button class="toggle-switch" [class.on]="hideBalanceEnabled()" [attr.aria-pressed]="hideBalanceEnabled()" aria-label="Toggle hide balance" (click)="toggleHideBalance()"><span></span></button>
+    </div>
+  </article>
+
+  <p class="settings-group-title">Active session</p>
+  <article class="card session-card">
+    <p class="session-title">Devices signed in to your account</p>
+    <div class="session-device">
+      <span class="bank-icon"><svg><use href="#icon-user"/></svg></span>
+      <span class="session-device-copy"><strong>This device</strong><small>Active now · Your current session</small></span>
+      <span class="session-current">Current</span>
+    </div>
+    <button class="text-button" (click)="showDemoNotice('Reviewing connected devices')">Review connected devices <svg><use href="#icon-arrow"/></svg></button>
+  </article>
+
+  <article class="card security-banner security-footer">
+    <span class="bank-icon"><svg><use href="#icon-lock"/></svg></span>
+    <span class="security-banner-copy"><strong>A little extra peace of mind</strong><small>Your profile stays on this device. We never access your bank account.</small></span>
+  </article>
+
+  <div class="form-footer"><button class="primary-button button-wide" (click)="savePreferences()">Save preferences</button></div>
+</section>

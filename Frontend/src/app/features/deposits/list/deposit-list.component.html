@@ -1,0 +1,52 @@
+<section class="screen deposits-screen">
+  <header class="screen-header">
+    <div class="screen-heading">
+      <p class="screen-kicker">YOUR FIXED DEPOSIT PORTFOLIO</p>
+      <h1>My deposits</h1>
+    </div>
+    <a class="icon-action icon-action--filled" routerLink="/deposits/new" aria-label="Add fixed deposit"><svg><use href="#icon-plus"/></svg></a>
+  </header>
+
+  <article class="portfolio-card deposits-summary">
+    <span class="portfolio-overline">TOTAL INVESTED IN FDs</span>
+    <strong class="portfolio-value money">{{ depositsService.totalInvested() | currency:'INR':'symbol-narrow':'1.0-0' }}</strong>
+    <span class="portfolio-count"><svg><use href="#icon-wallet"/></svg>{{ depositsService.activeCount() }} active fixed deposits tracked</span>
+  </article>
+
+  <label class="search-box">
+    <svg><use href="#icon-search"/></svg>
+    <input type="search" placeholder="Search by bank or account" aria-label="Search deposits" (input)="setQuery($event)">
+  </label>
+
+  <div class="deposit-list-heading">
+    <div>
+      <h2>All fixed deposits</h2>
+      <p>{{ filteredDeposits().length }} {{ filteredDeposits().length === 1 ? 'deposit' : 'deposits' }} in your list</p>
+    </div>
+    <a class="text-button" routerLink="/deposits/new"><svg><use href="#icon-plus"/></svg>Add new</a>
+  </div>
+
+  <div class="deposit-cards">
+    @for (deposit of filteredDeposits(); track deposit.id) {
+      <a class="card deposit-card" [routerLink]="['/deposits', deposit.id]">
+        <span class="deposit-card-top">
+          <span class="bank-icon"><svg><use href="#icon-bank"/></svg></span>
+          <span class="bank-identity"><strong>{{ deposit.institution }}</strong><small>Fixed deposit · {{ deposit.accountNumber }}</small></span>
+          <span class="deposit-kind">FD <svg><use href="#icon-chevron"/></svg></span>
+        </span>
+        <span class="deposit-card-bottom">
+          <span><small>Principal</small><strong>{{ deposit.principal | currency:'INR':'symbol-narrow':'1.0-0' }}</strong></span>
+          <span><small>Interest rate</small><strong>{{ deposit.annualRate }}% <small>p.a.</small></strong></span>
+          <span class="right-align"><small>Matures</small><strong>{{ deposit.maturityDate | date:'MMM d, y' }}</strong></span>
+        </span>
+      </a>
+    } @empty {
+      <div class="card empty-state">
+        <span class="bank-icon"><svg><use href="#icon-search"/></svg></span>
+        <strong>No deposits found</strong>
+        <p>Try a different bank or account number, or add your first fixed deposit.</p>
+        <a class="primary-button" routerLink="/deposits/new"><svg><use href="#icon-plus"/></svg>Add fixed deposit</a>
+      </div>
+    }
+  </div>
+</section>

@@ -1,0 +1,165 @@
+:host { display: block; }
+
+.maturity-intro {
+  margin: -6px 0 15px;
+  color: var(--ink-soft);
+  font-size: 13px;
+}
+
+.maturity-overview .portfolio-value {
+  font-size: 25px;
+  letter-spacing: -.6px;
+}
+
+.maturity-overview .portfolio-count svg {
+  width: 13px;
+  height: 13px;
+}
+
+.maturity-overview .portfolio-stats strong {
+  font-size: 14px;
+}
+
+.maturity-section-heading {
+  margin-top: 21px;
+}
+
+.month-list {
+  display: grid;
+  gap: 17px;
+}
+
+.month-group {
+  position: relative;
+  padding-left: 15px;
+}
+
+.month-group::before {
+  position: absolute;
+  top: 16px;
+  bottom: -19px;
+  left: 4px;
+  width: 1px;
+  background: var(--line);
+  content: "";
+}
+
+.month-group:last-child::before {
+  display: none;
+}
+
+.month-group-heading {
+  display: flex;
+  min-height: 43px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.month-group-title {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 10px;
+}
+
+.month-marker {
+  position: absolute;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  border: 2px solid var(--blue);
+  border-radius: 50%;
+  background: var(--page);
+}
+
+.month-group-title h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: -.2px;
+}
+
+.month-group-title p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 11px;
+}
+
+.month-group-total {
+  color: var(--blue);
+  font-size: 13px;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.month-deposits {
+  display: grid;
+  gap: 8px;
+}
+
+.month-deposits .maturity-row {
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.month-deposits .maturity-amount {
+  flex: 0 0 auto;
+  font-size: 12px;
+}
+
+.maturity-empty {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 24px 18px;
+  text-align: center;
+}
+
+.empty-calendar-icon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  margin-bottom: 2px;
+  border-radius: 13px;
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
+.empty-calendar-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.maturity-empty > strong {
+  font-size: 15px;
+}
+
+.maturity-empty p {
+  max-width: 280px;
+  margin: 0 0 5px;
+  color: var(--ink-soft);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 380px) {
+  .maturity-overview .portfolio-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .month-deposits .maturity-row {
+    gap: 7px;
+    padding: 9px;
+  }
+
+  .month-deposits .maturity-amount {
+    max-width: 115px;
+    font-size: 11px;
+  }
+}

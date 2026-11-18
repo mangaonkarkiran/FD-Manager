@@ -1,0 +1,17 @@
+<div class="page-heading">
+  <div><p class="eyebrow">A CLEARER LOOK AT YOUR JOURNEY</p><h1>Reports</h1><p class="page-subtitle">Your savings story, ready when you are.</p></div>
+  <button class="button button--primary" (click)="downloadCsv()"><svg><use href="#icon-arrow"/></svg> Export CSV</button>
+</div>
+<section class="report-hero">
+  <div class="report-hero-copy"><span class="report-icon"><svg><use href="#icon-file"/></svg></span><p class="eyebrow">YOUR PORTFOLIO REPORT</p><h2>Everything in one place.</h2><p>Download a simple, shareable snapshot of your tracked deposits. Your file is generated on this device.</p><button class="button button--light" (click)="downloadCsv()">Download your report <svg><use href="#icon-arrow"/></svg></button></div>
+  <div class="report-art" aria-hidden="true"><div class="report-paper"><span></span><span></span><span></span><div class="report-art-chart"></div></div><span class="report-sparkle sparkle-one">✳</span><span class="report-sparkle sparkle-two">✦</span></div>
+</section>
+<section class="panel report-table-panel">
+  <div class="panel-heading"><div><h2>Report preview</h2><p>{{ deposits().length }} deposits included</p></div><button class="text-link-button" (click)="downloadCsv()">Export CSV <svg><use href="#icon-arrow"/></svg></button></div>
+  <div class="deposit-table-wrap"><table class="deposit-table"><thead><tr><th>INSTITUTION</th><th>TYPE</th><th>PRINCIPAL</th><th>MATURITY DATE</th><th>STATUS</th></tr></thead><tbody>
+    @for (deposit of deposits(); track deposit.id) {
+      <tr><td><span class="institution-cell"><span [class]="'institution-mark ' + deposit.institution.toLowerCase().split(' ')[0]">{{ deposit.institution.slice(0, 1) }}</span><strong>{{ deposit.institution }}</strong></span></td><td>{{ deposit.kind }}</td><td class="table-amount">{{ deposit.principal | currency:'INR':'symbol-narrow':'1.0-0' }}</td><td>{{ deposit.maturityDate | date:'MMM d, y' }}</td><td><span class="status-pill"><span></span>{{ deposit.status }}</span></td></tr>
+    }
+  </tbody></table></div>
+</section>
+<p class="report-disclaimer"><svg><use href="#icon-shield"/></svg> This report contains only the mock data in this demo. It is not a bank statement or financial advice.</p>

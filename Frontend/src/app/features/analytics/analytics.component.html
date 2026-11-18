@@ -1,0 +1,85 @@
+<section class="screen analytics-screen">
+  <header class="screen-header">
+    <div class="screen-heading">
+      <p class="screen-kicker">YOUR FIXED DEPOSIT PORTFOLIO</p>
+      <h1>Insights</h1>
+    </div>
+  </header>
+
+  <p class="analytics-intro">A little perspective on how your savings are growing.</p>
+
+  <article class="portfolio-card analytics-overview">
+    <span class="portfolio-overline">TOTAL INVESTED IN FDs</span>
+    <strong class="portfolio-value money">{{ depositsService.totalInvested() | currency:'INR':'symbol-narrow':'1.0-0' }}</strong>
+    <span class="portfolio-count">
+      <svg><use href="#icon-wallet"/></svg>
+      {{ depositsService.activeCount() }} active fixed deposits across {{ deposits().length | number:'1.0-0' }} tracked
+    </span>
+    <div class="portfolio-divider"></div>
+    <div class="portfolio-stats">
+      <div>
+        <small>Expected at maturity</small>
+        <strong>{{ depositsService.projectedValue() | currency:'INR':'symbol-narrow':'1.0-0' }}</strong>
+      </div>
+      <div>
+        <small>Projected interest</small>
+        <strong class="positive">+{{ interest() | currency:'INR':'symbol-narrow':'1.0-0' }}</strong>
+      </div>
+    </div>
+  </article>
+
+  <div class="section-heading analytics-section-heading">
+    <div>
+      <h2>Portfolio insights</h2>
+      <p>Explore your FD allocation and interest rates.</p>
+    </div>
+  </div>
+
+  <section class="analytics-charts" aria-label="Portfolio charts">
+    <article class="panel analytics-chart-panel allocation-panel">
+      <div class="panel-heading">
+        <div><h2>Portfolio allocation</h2><p>Where your investments are held</p></div>
+        <span class="chart-period">By institution</span>
+      </div>
+      @if (deposits().length) {
+        <div class="allocation-chart">
+          <canvas baseChart [data]="allocationData()" [options]="allocationOptions" type="doughnut" aria-label="Deposit allocation by institution"></canvas>
+          <div class="doughnut-label"><strong>{{ deposits().length }}</strong><small>deposits</small></div>
+        </div>
+        <div class="allocation-legend">
+          @for (bank of allocationBreakdown(); track bank.institution) {
+            <span><i [style.--swatch]="bank.color"></i>{{ bank.institution }}</span>
+          }
+        </div>
+      } @else {
+        <p class="chart-empty">Add a fixed deposit to see your portfolio allocation.</p>
+      }
+    </article>
+
+    <article class="panel analytics-chart-panel rates-panel">
+      <div class="panel-heading">
+        <div><h2>Your interest rates</h2><p>Annual yield by institution</p></div>
+        <span class="chart-period">Rate · p.a.</span>
+      </div>
+      @if (deposits().length) {
+        <div class="rates-chart">
+          <canvas baseChart [data]="rateData()" [options]="rateOptions" type="bar" aria-label="Annual interest rates by institution"></canvas>
+        </div>
+        <div class="rate-insight">
+          <span class="insight-spark">✳</span>
+          <span>Your highest rate is <strong>{{ highestRate().annualRate }}%</strong> with {{ highestRate().institution }}. Nice find.</span>
+        </div>
+      } @else {
+        <p class="chart-empty">Interest rates will appear here after you add an FD.</p>
+      }
+    </article>
+  </section>
+
+  <section class="panel insight-banner">
+    <span class="banner-star">✳</span>
+    <div>
+      <h2>Consistency is your superpower.</h2>
+      <p>You have {{ depositsService.activeCount() }} active deposits quietly building toward your goals.</p>
+    </div>
+  </section>
+</section>

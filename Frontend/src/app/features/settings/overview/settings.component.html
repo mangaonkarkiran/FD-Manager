@@ -1,0 +1,54 @@
+<section class="screen settings-screen">
+  <header class="screen-header">
+    <div class="screen-heading">
+      <p class="screen-kicker">YOUR FIXED DEPOSIT PORTFOLIO</p>
+      <h1>Settings</h1>
+    </div>
+  </header>
+
+  <article class="card settings-profile">
+    <span class="profile-avatar" aria-hidden="true">A</span>
+    <span class="settings-profile-copy">
+      <strong>Aarav Sharma</strong>
+      <small>Personal profile · +91 98765 43210</small>
+    </span>
+  </article>
+
+  <section aria-labelledby="settings-preferences">
+    <h2 class="settings-group-title" id="settings-preferences">Preferences</h2>
+    <article class="card settings-list">
+      <div class="settings-row">
+        <span class="settings-row-icon"><svg><use href="#icon-calendar"/></svg></span>
+        <span class="settings-row-copy">
+          <strong>Maturity reminders</strong>
+          <small>Get a heads-up before a deposit matures.</small>
+        </span>
+        <button class="toggle-switch" [class.on]="remindersEnabled()" [attr.aria-pressed]="remindersEnabled()" aria-label="Toggle maturity reminders" (click)="toggleReminders()"><span></span></button>
+      </div>
+      <div class="settings-row">
+        <span class="settings-row-icon"><svg><use href="#icon-bell"/></svg></span>
+        <span class="settings-row-copy">
+          <strong>Notifications</strong>
+          <small>Choose whether FD updates are enabled.</small>
+        </span>
+        <button class="toggle-switch" [class.on]="notificationsEnabled()" [attr.aria-pressed]="notificationsEnabled()" aria-label="Toggle notifications" (click)="toggleNotifications()"><span></span></button>
+      </div>
+    </article>
+  </section>
+
+  <section aria-labelledby="settings-security">
+    <h2 class="settings-group-title" id="settings-security">Security</h2>
+    <article class="card settings-list">
+      <a class="settings-row settings-action" routerLink="/security">
+        <span class="settings-row-icon"><svg><use href="#icon-lock"/></svg></span>
+        <span class="settings-row-copy">
+          <strong>Security &amp; app lock</strong>
+          <small>Manage sign-in and device access.</small>
+        </span>
+        <span class="settings-value"><svg><use href="#icon-chevron"/></svg></span>
+      </a>
+    </article>
+  </section>
+
+  <button class="settings-signout" type="button">Sign out</button>
+</section>

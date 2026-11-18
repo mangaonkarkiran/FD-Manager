@@ -1,0 +1,62 @@
+:host { display: block; }
+
+.settings-screen {
+  max-width: 760px;
+}
+
+.settings-screen .screen-header {
+  margin-bottom: 15px;
+}
+
+.settings-screen .settings-profile {
+  min-height: 72px;
+  padding: 14px;
+}
+
+.settings-screen .settings-group-title {
+  margin: 18px 2px 8px;
+  color: var(--ink-faint);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: .7px;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.settings-screen .settings-list {
+  padding: 0 13px;
+}
+
+.settings-screen .settings-row {
+  min-height: 58px;
+  gap: 10px;
+}
+
+.settings-screen .settings-row-copy strong {
+  color: var(--ink);
+  font-size: 13px;
+}
+
+.settings-screen .settings-row-copy small {
+  color: var(--ink-soft);
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.settings-screen .settings-signout {
+  min-height: 44px;
+  margin-top: 16px;
+  border: 1px solid color-mix(in srgb, #b33a54 14%, var(--line));
+  background: color-mix(in srgb, #fff1f2 70%, var(--surface));
+  font-size: 13px;
+}
+
+@media (max-width: 380px) {
+  .settings-screen .settings-profile {
+    padding: 12px;
+  }
+
+  .settings-screen .settings-list {
+    padding-inline: 10px;
+  }
+}

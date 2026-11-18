@@ -1,0 +1,23 @@
+<div class="app-frame" [class.app-frame--bare]="!showNavigation()">
+  <app-icon-library />
+  <main class="route-content">
+    <router-outlet/>
+  </main>
+
+  @if (showNavigation()) {
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+        <svg><use href="#icon-grid"/></svg><span>Overview</span>
+      </a>
+      <a routerLink="/deposits" routerLinkActive="active">
+        <svg><use href="#icon-wallet"/></svg><span>Deposits</span>
+      </a>
+      <a routerLink="/maturity" routerLinkActive="active">
+        <svg><use href="#icon-calendar"/></svg><span>Maturity</span>
+      </a>
+      <a routerLink="/analytics" routerLinkActive="active">
+        <svg><use href="#icon-chart"/></svg><span>Insights</span>
+      </a>
+    </nav>
+  }
+</div>

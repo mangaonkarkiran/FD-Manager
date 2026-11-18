@@ -1,0 +1,32 @@
+<section class="verify-screen">
+  <header class="screen-header verify-screen-header">
+    <button class="back-action" type="button" aria-label="Back to sign in" (click)="changeNumber()"><svg><use href="#icon-back"/></svg></button>
+  </header>
+
+  <div class="verify-layout">
+    <div class="verify-heading">
+      <p class="screen-kicker">ONE LAST STEP</p>
+      <h1>Check your messages.</h1>
+      <p>We sent a 6-digit verification code to your mobile number.</p>
+    </div>
+
+    <form id="verify-code" class="card verify-card" [formGroup]="form" (ngSubmit)="verify()" novalidate>
+      <div class="verify-number"><span>+91 {{ phoneNumber.slice(0, 5) }} {{ phoneNumber.slice(5) }}</span><button type="button" (click)="changeNumber()">Change</button></div>
+      <label class="phone-field">Verification code
+        <input class="otp-input" type="tel" inputmode="numeric" autocomplete="one-time-code" maxlength="6" formControlName="code" aria-label="Six-digit verification code">
+      </label>
+      @if (form.controls.code.touched && form.controls.code.invalid) {
+        <small class="form-error">Enter the 6-digit code.</small>
+      }
+      <div class="otp-caption"><span>Didn’t receive it? <button type="button" (click)="resendCode()">Resend code</button></span><span>{{ resent() ? 'Code ready' : '00:24' }}</span></div>
+      @if (resent()) { <small class="form-error">This demo does not send SMS messages.</small> }
+
+      <article class="verify-note"><svg><use href="#icon-shield"/></svg><span>Keep your code private. FD Manager will never ask you to share it.</span></article>
+    </form>
+
+    <footer class="verify-footer">
+      <button class="primary-button button-wide" type="submit" form="verify-code">Verify &amp; continue</button>
+      <p class="auth-legal">Demo code is prefilled for this prototype. No SMS is sent.</p>
+    </footer>
+  </div>
+</section>

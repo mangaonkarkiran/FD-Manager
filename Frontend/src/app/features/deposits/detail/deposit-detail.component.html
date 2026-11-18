@@ -1,0 +1,53 @@
+@if (deposit; as item) {
+  <section class="screen detail-screen">
+    <header class="screen-header">
+      <div class="back-title">
+        <a class="back-action" routerLink="/deposits" aria-label="Back to deposits"><svg><use href="#icon-back"/></svg></a>
+        <div class="screen-heading"><p class="screen-kicker">YOUR FIXED DEPOSIT PORTFOLIO</p><h1>Deposit details</h1></div>
+      </div>
+    </header>
+
+    <article class="card detail-balance">
+      <div class="detail-balance-top">
+        <span class="bank-icon"><svg><use href="#icon-bank"/></svg></span>
+        <span class="bank-identity"><strong>{{ item.institution }}</strong><small>Fixed deposit · {{ item.accountNumber }}</small></span>
+        <span class="status-badge">{{ item.status }}</span>
+      </div>
+      <span class="balance-label">PRINCIPAL INVESTED</span>
+      <strong class="balance-amount money">{{ item.principal | currency:'INR':'symbol-narrow':'1.0-0' }}</strong>
+      <div class="detail-estimate">
+        <span><small>Estimated maturity value</small><strong>{{ maturityValue() | currency:'INR':'symbol-narrow':'1.0-0' }}</strong></span>
+        <span><small>Estimated interest</small><strong class="green-text">+{{ (maturityValue() - item.principal) | currency:'INR':'symbol-narrow':'1.0-0' }}</strong></span>
+      </div>
+      <div class="goal-progress">
+        <span class="goal-progress-row"><span>Time to maturity</span><strong>{{ daysLeft() }} days left</strong></span>
+        <span class="progress-track"><span [style.width.%]="progressPercent()"></span></span>
+        <span class="goal-progress-row"><small>{{ item.startDate | date:'dd MMM y' }}</small><small>{{ item.maturityDate | date:'dd MMM y' }}</small></span>
+      </div>
+    </article>
+
+    <div class="detail-section-heading">
+      <div><h2 class="detail-section-title">Deposit information</h2><p>Key details about this investment.</p></div>
+    </div>
+    <article class="card detail-info-grid">
+      <div class="detail-info-item"><small>Customer name</small><strong>{{ item.customerName }}</strong></div>
+      <div class="detail-info-item"><small>Principal amount</small><strong>{{ item.principal | currency:'INR':'symbol-narrow':'1.0-0' }}</strong></div>
+      <div class="detail-info-item"><small>Interest rate</small><strong>{{ item.annualRate }}% p.a.</strong></div>
+      <div class="detail-info-item"><small>Tenure</small><strong>{{ tenure }}</strong></div>
+      <div class="detail-info-item"><small>Nominee</small><strong>{{ item.hasNominee ? 'Yes' : 'No' }}</strong></div>
+      @if (item.hasNominee && item.nomineeName) {
+        <div class="detail-info-item"><small>Nominee name</small><strong>{{ item.nomineeName }}</strong></div>
+      }
+      <div class="detail-info-item"><small>Deposit type</small><strong>Fixed deposit</strong></div>
+      <div class="detail-info-item"><small>Status</small><strong>{{ item.status }}</strong></div>
+    </article>
+
+    <article class="card detail-reminder">
+      <span class="bank-icon"><svg><use href="#icon-bell"/></svg></span>
+      <span class="detail-reminder-copy"><strong>Never miss a maturity</strong><small>Get a reminder before this deposit matures.</small></span>
+      <button class="toggle-switch" [class.on]="reminderEnabled()" [attr.aria-pressed]="reminderEnabled()" aria-label="Toggle maturity reminder" (click)="toggleReminder()"><span></span></button>
+    </article>
+
+    <div class="form-footer"><button class="primary-button button-wide" (click)="manageDeposit()">Manage deposit</button></div>
+  </section>
+}

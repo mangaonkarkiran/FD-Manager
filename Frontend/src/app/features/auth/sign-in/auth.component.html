@@ -1,0 +1,36 @@
+<section class="auth-screen">
+  <div class="auth-layout">
+    <div class="auth-heading">
+      <p class="screen-kicker">YOUR SAVINGS, ONE STEP AWAY</p>
+      <h1>Welcome back.</h1>
+      <p>A clearer picture of your savings awaits.</p>
+    </div>
+
+    <form id="phone-signin" class="card auth-card" [formGroup]="form" (ngSubmit)="sendVerification()" novalidate>
+      <label class="phone-field">Mobile number
+        <span class="phone-input-wrap"><span>+91</span><input type="tel" formControlName="phone" inputmode="numeric" autocomplete="tel-national" maxlength="10" placeholder="98765 43210" aria-label="Mobile number"></span>
+      </label>
+      @if (form.controls.phone.touched && form.controls.phone.invalid) {
+        <small class="form-error">Enter a valid 10-digit mobile number.</small>
+      }
+
+      <label class="terms-row">
+        <input type="checkbox" formControlName="agreed">
+        <span>I agree to the <a href="#" (click)="$event.preventDefault()">Terms of Service</a> and <a href="#" (click)="$event.preventDefault()">Privacy Policy</a>.</span>
+      </label>
+      @if (form.controls.agreed.touched && form.controls.agreed.invalid) {
+        <small class="form-error">Please accept the terms to continue.</small>
+      }
+
+      <article class="security-note">
+        <svg><use href="#icon-shield"/></svg>
+        <div><strong>Tracking, not transactions</strong><small>FD Manager never accesses your bank account or moves your money.</small></div>
+      </article>
+    </form>
+
+    <footer class="auth-footer">
+      <button class="primary-button button-wide" type="submit" form="phone-signin">Send verification code</button>
+      <p class="auth-legal">This demo does not send SMS messages or store your mobile number.</p>
+    </footer>
+  </div>
+</section>

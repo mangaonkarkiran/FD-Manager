@@ -1,0 +1,93 @@
+<section class="screen maturity-screen">
+  <header class="screen-header">
+    <div class="screen-heading">
+      <p class="screen-kicker">PLAN A LITTLE AHEAD</p>
+      <h1>Maturity calendar</h1>
+    </div>
+    <a class="icon-action icon-action--filled" routerLink="/deposits/new" aria-label="Add fixed deposit">
+      <svg><use href="#icon-plus"/></svg>
+    </a>
+  </header>
+
+  <p class="maturity-intro">See what’s maturing next and plan month by month.</p>
+
+  @if (nextMaturityMonth(); as nextMonth) {
+    <article class="portfolio-card maturity-overview">
+      <span class="portfolio-overline">NEXT MATURITY MONTH</span>
+      <strong class="portfolio-value">{{ nextMonth.label }}</strong>
+      <span class="portfolio-count">
+        <svg><use href="#icon-calendar"/></svg>
+        {{ nextMonth.count }} {{ nextMonth.count === 1 ? 'fixed deposit' : 'fixed deposits' }} maturing
+      </span>
+      <div class="portfolio-divider"></div>
+      <div class="portfolio-stats">
+        <div>
+          <small>Estimated this month</small>
+          <strong>{{ nextMonth.maturityValue | currency:'INR':'symbol-narrow':'1.0-0' }}</strong>
+        </div>
+        <div>
+          <small>All upcoming maturities</small>
+          <strong>{{ upcomingCount() }} · {{ upcomingValue() | currency:'INR':'symbol-narrow':'1.0-0' }}</strong>
+        </div>
+      </div>
+    </article>
+
+    <div class="section-heading maturity-section-heading">
+      <div>
+        <h2>Month by month</h2>
+        <p>Your upcoming FD maturity schedule.</p>
+      </div>
+      <span class="text-button">{{ monthlyMaturities().length }} {{ monthlyMaturities().length === 1 ? 'month' : 'months' }}</span>
+    </div>
+
+    <div class="month-list">
+      @for (month of monthlyMaturities(); track month.key) {
+        <section class="month-group" [attr.aria-labelledby]="'month-' + month.key">
+          <div class="month-group-heading">
+            <div class="month-group-title">
+              <span class="month-marker" aria-hidden="true"></span>
+              <div>
+                <h3 [id]="'month-' + month.key">{{ month.label }}</h3>
+                <p>{{ month.count }} {{ month.count === 1 ? 'deposit' : 'deposits' }} maturing</p>
+              </div>
+            </div>
+            <strong class="month-group-total">{{ month.maturityValue | currency:'INR':'symbol-narrow':'1.0-0' }}</strong>
+          </div>
+
+          <div class="month-deposits">
+            @for (deposit of month.deposits; track deposit.id) {
+              <a class="card maturity-row" [routerLink]="['/deposits', deposit.id]">
+                <span class="date-tile">
+                  <strong>{{ deposit.maturityDate | date:'dd' }}</strong>
+                  <small>{{ deposit.maturityDate | date:'MMM' }}</small>
+                </span>
+                <span class="maturity-copy">
+                  <strong>{{ deposit.institution }}</strong>
+                  <small>{{ deposit.maturityDate | date:'EEE, d MMM' }} · {{ deposit.annualRate }}% p.a.</small>
+                </span>
+                <span class="maturity-amount">
+                  {{ valueAtMaturity(deposit) | currency:'INR':'symbol-narrow':'1.0-0' }}
+                  <small>{{ daysUntil(deposit) === 0 ? 'Matures today' : 'In ' + daysUntil(deposit) + ' days' }}</small>
+                </span>
+              </a>
+            }
+          </div>
+        </section>
+      }
+    </div>
+  } @else {
+    <article class="portfolio-card maturity-overview maturity-overview--empty">
+      <span class="portfolio-overline">YOUR MATURITY PLAN</span>
+      <strong class="portfolio-value">Nothing coming up</strong>
+      <span class="portfolio-count">Add a fixed deposit to see your upcoming maturity months here.</span>
+    </article>
+    <div class="card maturity-empty">
+      <span class="empty-calendar-icon"><svg><use href="#icon-calendar"/></svg></span>
+      <strong>No upcoming maturities yet</strong>
+      <p>Once you add an FD, its maturity month and estimated value will appear here.</p>
+      <a class="primary-button" routerLink="/deposits/new">
+        <svg><use href="#icon-plus"/></svg>Add fixed deposit
+      </a>
+    </div>
+  }
+</section>

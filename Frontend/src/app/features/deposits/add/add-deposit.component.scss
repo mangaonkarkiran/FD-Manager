@@ -1,0 +1,29 @@
+:host { display: block; }
+
+.add-deposit-screen { max-width: 760px; }
+.add-deposit-screen .screen-header { margin-bottom: 5px; }
+.add-deposit-intro { margin: 0 0 18px 33px; color: var(--ink-soft); font-size: 13px; line-height: 1.5; }
+.form-card {
+  padding: 18px;
+  border-color: var(--line);
+  box-shadow: var(--shadow);
+}
+.form-section-heading { display: flex; align-items: center; gap: 11px; margin-bottom: 18px; }
+.form-section-icon { display: grid; width: 40px; height: 40px; flex: 0 0 40px; place-items: center; border-radius: 12px; background: var(--blue-soft); color: var(--blue); }
+.form-section-icon svg { width: 19px; height: 19px; }
+.form-section-heading > span:last-child { display: grid; gap: 3px; }
+.form-section-heading strong { color: var(--ink); font-size: 15px; }
+.form-section-heading small { color: var(--ink-soft); font-size: 11px; }
+.add-deposit-screen .form-field { color: var(--ink-soft); font-size: 11px; font-weight: 650; }
+.add-deposit-screen .form-field input,
+.add-deposit-screen .form-field select { height: 43px; border-color: var(--line); border-radius: 10px; font-size: 13px; }
+.add-deposit-screen .estimate-card { border: 0; border-radius: 13px; }
+.add-deposit-screen .estimate-header { font-size: 10px; font-weight: 650; letter-spacing: .3px; }
+.add-deposit-screen .form-reminder-copy strong { color: var(--ink); font-size: 12px; }
+.add-deposit-screen .form-reminder-copy small { color: var(--ink-soft); font-size: 10px; }
+.add-deposit-screen .primary-button { min-height: 48px; }
+
+@media (max-width: 380px) {
+  .form-card { padding: 14px; }
+  .add-deposit-intro { margin-left: 0; }
+}

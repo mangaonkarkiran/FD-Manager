@@ -1,0 +1,105 @@
+<section class="screen overview-screen">
+  <header class="screen-header">
+    <div class="screen-heading">
+      <p class="screen-kicker">YOUR FIXED DEPOSIT PORTFOLIO</p>
+      <h1>Overview</h1>
+    </div>
+    <span class="header-actions">
+      <a class="icon-action" routerLink="/settings" aria-label="Profile and settings"><svg><use href="#icon-user"/></svg></a>
+      <button class="icon-action" aria-label="Notifications" (click)="showNotifications()">
+        <svg><use href="#icon-bell"/></svg><span class="notification-dot"></span>
+      </button>
+    </span>
+  </header>
+
+  <article class="portfolio-card portfolio-card--balance">
+    <span class="portfolio-overline">TOTAL INVESTED IN FDs</span>
+    <strong class="portfolio-value money">{{ depositsService.totalInvested() | currency:'INR':'symbol-narrow':'1.0-0' }}</strong>
+    <span class="portfolio-count"><svg><use href="#icon-wallet"/></svg>{{ depositsService.activeCount() }} active fixed deposits</span>
+    <div class="portfolio-divider"></div>
+    <div class="portfolio-stats">
+      <div><small>Expected at maturity</small><strong>{{ depositsService.projectedValue() | currency:'INR':'symbol-narrow':'1.0-0' }}</strong></div>
+      <div><small>Projected interest</small><strong class="positive">+{{ interest() | currency:'INR':'symbol-narrow':'1.0-0' }}</strong></div>
+    </div>
+  </article>
+
+  <section aria-labelledby="next-maturity-heading">
+    <div class="section-heading">
+      <div><h2 id="next-maturity-heading">Next maturity</h2><p>Your nearest upcoming fixed deposit.</p></div>
+      <a class="text-button" routerLink="/maturity">Calendar <svg><use href="#icon-arrow"/></svg></a>
+    </div>
+    @if (nextMaturity(); as deposit) {
+      <a class="next-maturity-card" [routerLink]="['/deposits', deposit.id]">
+        <span class="date-tile"><strong>{{ deposit.maturityDate | date:'dd' }}</strong><small>{{ deposit.maturityDate | date:'MMM' }}</small></span>
+        <span class="next-maturity-copy">
+          <span class="next-maturity-label">NEXT TO MATURE</span>
+          <strong>{{ deposit.institution }}</strong>
+          <small>{{ deposit.maturityDate | date:'MMMM d, y' }}</small>
+        </span>
+        <span class="next-maturity-side">
+          <strong>{{ daysUntil(deposit.maturityDate) }}</strong>
+          <small>days left</small>
+          <span>{{ amountForMaturity(deposit.id) | currency:'INR':'symbol-narrow':'1.0-0' }}</span>
+        </span>
+      </a>
+    } @else {
+      <div class="card next-maturity-empty">
+        <p>No upcoming maturities. Add an FD to start tracking.</p>
+        <a class="text-button" routerLink="/deposits/new">Add fixed deposit <svg><use href="#icon-arrow"/></svg></a>
+      </div>
+    }
+  </section>
+
+  <section aria-labelledby="bank-breakdown-heading">
+    <div class="section-heading">
+      <div><h2 id="bank-breakdown-heading">Your deposits by bank</h2><p>How your FD investment is distributed.</p></div>
+      <a class="text-button" routerLink="/deposits">All deposits <svg><use href="#icon-arrow"/></svg></a>
+    </div>
+    <div class="card bank-breakdown">
+      @if (bankBreakdown().length) {
+        <div class="bank-allocation-bar" role="img" aria-label="Fixed deposit allocation by bank">
+          @for (bank of bankBreakdown(); track bank.institution) {
+            <span [style.width.%]="bank.share" [style.backgroundColor]="bank.color" [attr.aria-label]="bank.institution"></span>
+          }
+        </div>
+        <div class="bank-allocation-legend">
+          @for (bank of bankBreakdown(); track bank.institution) {
+            <div class="bank-allocation-item">
+              <span class="bank-allocation-name">
+                <i [style.backgroundColor]="bank.color"></i>
+                <strong>{{ bank.institution }}</strong>
+              </span>
+              <strong class="bank-allocation-amount">{{ bank.amount | currency:'INR':'symbol-narrow':'1.0-0' }}</strong>
+              <small>{{ bank.count }} {{ bank.count === 1 ? 'FD' : 'FDs' }} · {{ bank.share | number:'1.0-0' }}%</small>
+            </div>
+          }
+        </div>
+      } @else {
+        <p class="bank-breakdown-empty">Your bank allocation will appear here when you add an FD.</p>
+        <a class="text-button" routerLink="/deposits/new">Add fixed deposit <svg><use href="#icon-arrow"/></svg></a>
+      }
+    </div>
+  </section>
+
+  <a class="primary-button dashboard-add-button" routerLink="/deposits/new">
+    <svg><use href="#icon-plus"/></svg>Add fixed deposit
+  </a>
+
+  @if (upcoming().length) {
+    <section aria-labelledby="more-maturities-heading">
+      <div class="section-heading">
+        <div><h2 id="more-maturities-heading">Coming up next</h2><p>Other upcoming FD maturities.</p></div>
+        <a class="text-button" routerLink="/maturity">View all <svg><use href="#icon-arrow"/></svg></a>
+      </div>
+      <div class="maturity-preview">
+        @for (deposit of upcoming(); track deposit.id) {
+          <a class="card maturity-row" [routerLink]="['/deposits', deposit.id]">
+            <span class="date-tile"><strong>{{ deposit.maturityDate | date:'dd' }}</strong><small>{{ deposit.maturityDate | date:'MMM' }}</small></span>
+            <span class="maturity-copy"><strong>{{ deposit.institution }}</strong><small>{{ deposit.kind }} · {{ deposit.annualRate }}% p.a.</small></span>
+            <span class="maturity-amount">{{ amountForMaturity(deposit.id) | currency:'INR':'symbol-narrow':'1.0-0' }}<small>In {{ daysUntil(deposit.maturityDate) }} days</small></span>
+          </a>
+        }
+      </div>
+    </section>
+  }
+</section>
