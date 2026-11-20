@@ -1,5 +1,9 @@
-@if (deposit; as item) {
-  <section class="screen detail-screen">
+<section class="screen detail-screen">
+  <app-deposit-data-status [showLoading]="false" />
+  @if (depositsService.loading()) {
+    <app-deposit-loading-skeleton variant="detail" />
+  } @else if (depositsService.loaded()) {
+  @if (deposit(); as item) {
     <header class="screen-header">
       <div class="back-title">
         <a class="back-action" routerLink="/deposits" aria-label="Back to deposits"><svg><use href="#icon-back"/></svg></a>
@@ -33,11 +37,12 @@
       <div class="detail-info-item"><small>Customer name</small><strong>{{ item.customerName }}</strong></div>
       <div class="detail-info-item"><small>Principal amount</small><strong>{{ item.principal | currency:'INR':'symbol-narrow':'1.0-0' }}</strong></div>
       <div class="detail-info-item"><small>Interest rate</small><strong>{{ item.annualRate }}% p.a.</strong></div>
-      <div class="detail-info-item"><small>Tenure</small><strong>{{ tenure }}</strong></div>
+      <div class="detail-info-item"><small>Tenure</small><strong>{{ tenure() }}</strong></div>
       <div class="detail-info-item"><small>Nominee</small><strong>{{ item.hasNominee ? 'Yes' : 'No' }}</strong></div>
       @if (item.hasNominee && item.nomineeName) {
         <div class="detail-info-item"><small>Nominee name</small><strong>{{ item.nomineeName }}</strong></div>
       }
+      <div class="detail-info-item"><small>Auto-renew at maturity</small><strong>{{ item.autoRenew ? 'Yes' : 'No' }}</strong></div>
       <div class="detail-info-item"><small>Deposit type</small><strong>Fixed deposit</strong></div>
       <div class="detail-info-item"><small>Status</small><strong>{{ item.status }}</strong></div>
     </article>
@@ -49,5 +54,6 @@
     </article>
 
     <div class="form-footer"><button class="primary-button button-wide" (click)="manageDeposit()">Manage deposit</button></div>
-  </section>
-}
+  }
+  }
+</section>

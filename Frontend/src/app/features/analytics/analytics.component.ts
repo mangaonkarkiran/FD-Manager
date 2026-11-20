@@ -5,12 +5,20 @@ import type { ChartConfiguration } from 'chart.js';
 import 'chart.js/auto';
 import { calculateMaturityValue } from '../deposits/deposit.model';
 import { DepositsService } from '../deposits/deposits.service';
+import { DepositDataStatusComponent } from '../deposits/deposit-data-status.component';
+import { DepositLoadingSkeletonComponent } from '../deposits/deposit-loading-skeleton.component';
 
 @Component({
   selector: 'app-analytics',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CurrencyPipe, DecimalPipe, BaseChartDirective],
+  imports: [
+    CurrencyPipe,
+    DecimalPipe,
+    BaseChartDirective,
+    DepositDataStatusComponent,
+    DepositLoadingSkeletonComponent,
+  ],
   templateUrl: './analytics.component.html',
   styleUrl: './analytics.component.scss',
 })

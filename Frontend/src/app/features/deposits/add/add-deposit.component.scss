@@ -17,6 +17,10 @@
 .add-deposit-screen .form-field { color: var(--ink-soft); font-size: 11px; font-weight: 650; }
 .add-deposit-screen .form-field input,
 .add-deposit-screen .form-field select { height: 43px; border-color: var(--line); border-radius: 10px; font-size: 13px; }
+.add-deposit-screen .nominee-toggle { display: flex; min-height: 43px; align-items: center; justify-content: space-between; }
+.add-deposit-screen .auto-renew-copy { display: grid; gap: 3px; }
+.add-deposit-screen .auto-renew-copy strong { color: var(--ink); font-size: 12px; }
+.add-deposit-screen .auto-renew-copy small { color: var(--ink-soft); font-size: 10px; font-weight: 400; }
 .add-deposit-screen .estimate-card { border: 0; border-radius: 13px; }
 .add-deposit-screen .estimate-header { font-size: 10px; font-weight: 650; letter-spacing: .3px; }
 .add-deposit-screen .form-reminder-copy strong { color: var(--ink); font-size: 12px; }

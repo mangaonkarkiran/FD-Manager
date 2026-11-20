@@ -12,6 +12,7 @@ export interface Deposit {
   accountNumber: string;
   hasNominee: boolean;
   nomineeName: string | null;
+  autoRenew: boolean;
   status: DepositStatus;
 }
 

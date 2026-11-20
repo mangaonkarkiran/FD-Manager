@@ -1,6 +1,8 @@
 # FD Manager
 
-A mobile-first fixed deposit tracker built with Angular 18. The interface follows the supplied Figma screens and uses local browser storage for its demo data.
+A mobile-first fixed deposit tracker built with Angular 18. The frontend uses
+the FastAPI service and PostgreSQL for deposit data and Firebase Phone
+Authentication for sign-in.
 
 ## Run locally
 
@@ -9,7 +11,9 @@ npm install
 npm start
 ```
 
-Open `http://localhost:4200/`. The app starts on **Overview**.
+Open `http://localhost:4200/`. The app starts on **Overview** after Firebase
+Phone Authentication. Configure the Firebase Web app settings in
+`src/environments/environment.development.ts` before testing sign-in.
 
 ## Source structure
 
@@ -55,7 +59,13 @@ Keep deposit domain logic and state inside the deposits feature, shared browser 
 - Profile & settings: `/settings`
 - Security: `/security`
 
-The sign-in and verification flow is a front-end prototype; it does not send SMS messages or authenticate an account. Deposit data and preferences are stored locally in the browser.
+Deposit data is loaded from the backend API. Theme and reminder preferences
+remain in browser storage. Existing locally saved deposits are not removed; if
+the signed-in account has no server deposits, the app offers an explicit import
+of saved non-demo deposits.
+
+Backend setup, Firebase configuration, PostgreSQL migrations, and API routes
+are documented in [../Backend/README.md](../Backend/README.md).
 
 ## Build and tests
 

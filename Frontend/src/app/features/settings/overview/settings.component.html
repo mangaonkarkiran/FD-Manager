@@ -36,19 +36,5 @@
     </article>
   </section>
 
-  <section aria-labelledby="settings-security">
-    <h2 class="settings-group-title" id="settings-security">Security</h2>
-    <article class="card settings-list">
-      <a class="settings-row settings-action" routerLink="/security">
-        <span class="settings-row-icon"><svg><use href="#icon-lock"/></svg></span>
-        <span class="settings-row-copy">
-          <strong>Security &amp; app lock</strong>
-          <small>Manage sign-in and device access.</small>
-        </span>
-        <span class="settings-value"><svg><use href="#icon-chevron"/></svg></span>
-      </a>
-    </article>
-  </section>
-
-  <button class="settings-signout" type="button">Sign out</button>
+  <button class="settings-signout" type="button" (click)="signOut()">Sign out</button>
 </section>

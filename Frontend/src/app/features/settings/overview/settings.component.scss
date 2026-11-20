@@ -1,20 +1,31 @@
 :host { display: block; }
 
 .settings-screen {
+  width: 100%;
   max-width: 760px;
+  margin-inline: auto;
 }
 
 .settings-screen .screen-header {
-  margin-bottom: 15px;
+  margin-bottom: 18px;
 }
 
 .settings-screen .settings-profile {
+  gap: 14px;
   min-height: 72px;
-  padding: 14px;
+  padding: 16px;
+}
+
+.settings-screen .settings-profile-copy {
+  min-width: 0;
+}
+
+.settings-screen .settings-profile-copy small {
+  overflow-wrap: anywhere;
 }
 
 .settings-screen .settings-group-title {
-  margin: 18px 2px 8px;
+  margin: 24px 2px 10px;
   color: var(--ink-faint);
   font-size: 11px;
   font-weight: 750;
@@ -24,39 +35,61 @@
 }
 
 .settings-screen .settings-list {
-  padding: 0 13px;
+  padding: 0 16px;
 }
 
 .settings-screen .settings-row {
-  min-height: 58px;
-  gap: 10px;
+  min-height: 64px;
+  gap: 12px;
+}
+
+.settings-screen .settings-row-copy {
+  min-width: 0;
+  padding-block: 10px;
 }
 
 .settings-screen .settings-row-copy strong {
   color: var(--ink);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .settings-screen .settings-row-copy small {
   color: var(--ink-soft);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.35;
 }
 
 .settings-screen .settings-signout {
-  min-height: 44px;
-  margin-top: 16px;
+  min-height: 48px;
+  margin-top: 22px;
   border: 1px solid color-mix(in srgb, #b33a54 14%, var(--line));
   background: color-mix(in srgb, #fff1f2 70%, var(--surface));
-  font-size: 13px;
+  font-size: 14px;
 }
 
-@media (max-width: 380px) {
+@media (max-width: 480px) {
+  .settings-screen .settings-group-title {
+    margin-top: 20px;
+  }
+
   .settings-screen .settings-profile {
-    padding: 12px;
+    gap: 11px;
+    padding: 13px;
   }
 
   .settings-screen .settings-list {
-    padding-inline: 10px;
+    padding-inline: 12px;
+  }
+
+  .settings-screen .settings-row {
+    gap: 9px;
+  }
+
+  .settings-screen .settings-row-copy strong {
+    font-size: 13px;
+  }
+
+  .settings-screen .settings-row-copy small {
+    font-size: 11px;
   }
 }

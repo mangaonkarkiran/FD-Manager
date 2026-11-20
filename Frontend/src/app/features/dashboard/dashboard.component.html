@@ -12,6 +12,13 @@
     </span>
   </header>
 
+  <app-deposit-data-status [showLoading]="false" />
+
+  @if (depositsService.loading()) {
+    <app-deposit-loading-skeleton variant="dashboard" />
+  } @else if (depositsService.loaded()) {
+  <app-legacy-deposit-import />
+
   <article class="portfolio-card portfolio-card--balance">
     <span class="portfolio-overline">TOTAL INVESTED IN FDs</span>
     <strong class="portfolio-value money">{{ depositsService.totalInvested() | currency:'INR':'symbol-narrow':'1.0-0' }}</strong>
@@ -101,5 +108,6 @@
         }
       </div>
     </section>
+  }
   }
 </section>

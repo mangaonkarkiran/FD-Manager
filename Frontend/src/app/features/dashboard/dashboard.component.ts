@@ -4,12 +4,24 @@ import { RouterLink } from '@angular/router';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { calculateMaturityValue, daysUntilMaturity } from '../deposits/deposit.model';
 import { DepositsService } from '../deposits/deposits.service';
+import { DepositDataStatusComponent } from '../deposits/deposit-data-status.component';
+import { DepositLoadingSkeletonComponent } from '../deposits/deposit-loading-skeleton.component';
+import { LegacyDepositImportComponent } from '../deposits/legacy-deposit-import.component';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CurrencyPipe, DatePipe, DecimalPipe, RouterLink, MatSnackBarModule],
+  imports: [
+    CurrencyPipe,
+    DatePipe,
+    DecimalPipe,
+    RouterLink,
+    MatSnackBarModule,
+    DepositDataStatusComponent,
+    DepositLoadingSkeletonComponent,
+    LegacyDepositImportComponent,
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })

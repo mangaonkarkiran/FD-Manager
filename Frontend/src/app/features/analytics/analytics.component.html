@@ -6,6 +6,11 @@
     </div>
   </header>
 
+  <app-deposit-data-status [showLoading]="false" />
+
+  @if (depositsService.loading()) {
+    <app-deposit-loading-skeleton variant="analytics" />
+  } @else if (depositsService.loaded()) {
   <p class="analytics-intro">A little perspective on how your savings are growing.</p>
 
   <article class="portfolio-card analytics-overview">
@@ -82,4 +87,5 @@
       <p>You have {{ depositsService.activeCount() }} active deposits quietly building toward your goals.</p>
     </div>
   </section>
+  }
 </section>

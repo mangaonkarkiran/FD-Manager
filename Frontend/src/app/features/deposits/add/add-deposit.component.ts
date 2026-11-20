@@ -11,6 +11,7 @@ import { Router, RouterLink } from '@angular/router';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { calculateMaturityValue, Deposit, formatTenure } from '../deposit.model';
 import { DepositsService } from '../deposits.service';
+import { DepositDataStatusComponent } from '../deposit-data-status.component';
 
 function validateDepositDetails(control: AbstractControl): ValidationErrors | null {
   const startDate = control.get('startDate')?.value as string | undefined;
@@ -33,7 +34,13 @@ function validateDepositDetails(control: AbstractControl): ValidationErrors | nu
   selector: 'app-add-deposit',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CurrencyPipe, ReactiveFormsModule, RouterLink, MatSnackBarModule],
+  imports: [
+    CurrencyPipe,
+    ReactiveFormsModule,
+    RouterLink,
+    MatSnackBarModule,
+    DepositDataStatusComponent,
+  ],
   templateUrl: './add-deposit.component.html',
   styleUrl: './add-deposit.component.scss',
 })
@@ -64,31 +71,41 @@ export class AddDepositComponent {
     maturityDate: [this.maturityDate(this.today, 12), Validators.required],
     hasNominee: [false],
     nomineeName: [''],
+    autoRenew: [false],
   }, { validators: validateDepositDetails });
 
-  submit(): void {
+  async submit(): Promise<void> {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
     const value = this.form.getRawValue();
-    const created = this.depositsService.add({
-      customerName: value.customerName.trim(),
-      institution: value.institution,
-      kind: 'Fixed deposit',
-      principal: value.principal,
-      annualRate: value.annualRate,
-      startDate: value.startDate,
-      maturityDate: value.maturityDate,
-      accountNumber: '•••• 4821',
-      hasNominee: value.hasNominee,
-      nomineeName: value.hasNominee ? value.nomineeName.trim() : null,
-    });
+    try {
+      const created = await this.depositsService.add({
+        customerName: value.customerName.trim(),
+        institution: value.institution,
+        kind: 'Fixed deposit',
+        principal: value.principal,
+        annualRate: value.annualRate,
+        startDate: value.startDate,
+        maturityDate: value.maturityDate,
+        accountNumber: '•••• 4821',
+        hasNominee: value.hasNominee,
+        nomineeName: value.hasNominee ? value.nomineeName.trim() : null,
+        autoRenew: value.autoRenew,
+      });
 
-    localStorage.setItem('nestegg.reminders', this.reminderEnabled() ? 'on' : 'off');
-    this.snackBar.open('Your deposit has been added.', 'Dismiss', { duration: 3000 });
-    void this.router.navigate(['/deposits', created.id]);
+      localStorage.setItem('nestegg.reminders', this.reminderEnabled() ? 'on' : 'off');
+      this.snackBar.open('Your deposit has been added.', 'Dismiss', { duration: 3000 });
+      await this.router.navigate(['/deposits', created.id]);
+    } catch (error) {
+      this.snackBar.open(
+        error instanceof Error ? error.message : 'Your deposit could not be saved.',
+        'Dismiss',
+        { duration: 5000 },
+      );
+    }
   }
 
   estimatedValue(): number | null {
@@ -115,6 +132,7 @@ export class AddDepositComponent {
       accountNumber: '•••• 4821',
       hasNominee: value.hasNominee,
       nomineeName: value.hasNominee ? value.nomineeName.trim() : null,
+      autoRenew: value.autoRenew,
       status: 'Active',
     };
     const estimate = calculateMaturityValue(preview);

@@ -3,6 +3,8 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { RouterLink } from '@angular/router';
 import { calculateMaturityValue, Deposit, daysUntilMaturity } from '../deposits/deposit.model';
 import { DepositsService } from '../deposits/deposits.service';
+import { DepositDataStatusComponent } from '../deposits/deposit-data-status.component';
+import { DepositLoadingSkeletonComponent } from '../deposits/deposit-loading-skeleton.component';
 
 interface MonthlyMaturity {
   key: string;
@@ -16,12 +18,18 @@ interface MonthlyMaturity {
   selector: 'app-maturity',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CurrencyPipe, DatePipe, RouterLink],
+  imports: [
+    CurrencyPipe,
+    DatePipe,
+    RouterLink,
+    DepositDataStatusComponent,
+    DepositLoadingSkeletonComponent,
+  ],
   templateUrl: './maturity.component.html',
   styleUrl: './maturity.component.scss',
 })
 export class MaturityComponent {
-  private readonly depositsService = inject(DepositsService);
+  readonly depositsService = inject(DepositsService);
   readonly deposits = this.depositsService.deposits;
   private readonly today = this.dateString(new Date());
   readonly monthlyMaturities = computed(() => {

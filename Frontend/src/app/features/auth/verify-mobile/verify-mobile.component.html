@@ -18,15 +18,18 @@
       @if (form.controls.code.touched && form.controls.code.invalid) {
         <small class="form-error">Enter the 6-digit code.</small>
       }
-      <div class="otp-caption"><span>Didn’t receive it? <button type="button" (click)="resendCode()">Resend code</button></span><span>{{ resent() ? 'Code ready' : '00:24' }}</span></div>
-      @if (resent()) { <small class="form-error">This demo does not send SMS messages.</small> }
+      <div class="otp-caption"><span>Didn’t receive it? <button type="button" [disabled]="sending()" (click)="resendCode()">Resend code</button></span><span>{{ resent() ? 'Code sent' : '' }}</span></div>
+      <div id="recaptcha-container"></div>
+      @if (errorMessage()) { <small class="form-error" role="alert">{{ errorMessage() }}</small> }
 
       <article class="verify-note"><svg><use href="#icon-shield"/></svg><span>Keep your code private. FD Manager will never ask you to share it.</span></article>
     </form>
 
     <footer class="verify-footer">
-      <button class="primary-button button-wide" type="submit" form="verify-code">Verify &amp; continue</button>
-      <p class="auth-legal">Demo code is prefilled for this prototype. No SMS is sent.</p>
+      <button class="primary-button button-wide" type="submit" form="verify-code" [disabled]="verifying()">
+        {{ verifying() ? 'Verifying…' : 'Verify &amp; continue' }}
+      </button>
+      <p class="auth-legal">Enter the verification code sent to your mobile number.</p>
     </footer>
   </div>
 </section>

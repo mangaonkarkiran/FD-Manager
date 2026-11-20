@@ -22,6 +22,11 @@
         <small class="form-error">Please accept the terms to continue.</small>
       }
 
+      <div id="recaptcha-container"></div>
+      @if (errorMessage()) {
+        <small class="form-error" role="alert">{{ errorMessage() }}</small>
+      }
+
       <article class="security-note">
         <svg><use href="#icon-shield"/></svg>
         <div><strong>Tracking, not transactions</strong><small>FD Manager never accesses your bank account or moves your money.</small></div>
@@ -29,8 +34,10 @@
     </form>
 
     <footer class="auth-footer">
-      <button class="primary-button button-wide" type="submit" form="phone-signin">Send verification code</button>
-      <p class="auth-legal">This demo does not send SMS messages or store your mobile number.</p>
+      <button class="primary-button button-wide" type="submit" form="phone-signin" [disabled]="sending()">
+        {{ sending() ? 'Sending code…' : 'Send verification code' }}
+      </button>
+      <p class="auth-legal">You’ll receive a text message. Standard carrier rates may apply.</p>
     </footer>
   </div>
 </section>

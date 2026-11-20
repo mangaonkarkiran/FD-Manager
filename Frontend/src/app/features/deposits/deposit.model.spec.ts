@@ -18,6 +18,7 @@ describe('deposit calculations', () => {
     accountNumber: '•••• 1234',
     hasNominee: false,
     nomineeName: null,
+    autoRenew: false,
     status: 'Active',
   };
 

@@ -9,12 +9,22 @@ import {
 import { RouterLink } from '@angular/router';
 import { Deposit } from '../deposit.model';
 import { DepositsService } from '../deposits.service';
+import { DepositDataStatusComponent } from '../deposit-data-status.component';
+import { DepositLoadingSkeletonComponent } from '../deposit-loading-skeleton.component';
+import { LegacyDepositImportComponent } from '../legacy-deposit-import.component';
 
 @Component({
   selector: 'app-deposit-list',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CurrencyPipe, DatePipe, RouterLink],
+  imports: [
+    CurrencyPipe,
+    DatePipe,
+    RouterLink,
+    DepositDataStatusComponent,
+    DepositLoadingSkeletonComponent,
+    LegacyDepositImportComponent,
+  ],
   templateUrl: './deposit-list.component.html',
   styleUrl: './deposit-list.component.scss',
 })

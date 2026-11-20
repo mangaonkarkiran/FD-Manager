@@ -3,17 +3,25 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Deposit } from '../deposits/deposit.model';
 import { DepositsService } from '../deposits/deposits.service';
+import { DepositDataStatusComponent } from '../deposits/deposit-data-status.component';
+import { DepositLoadingSkeletonComponent } from '../deposits/deposit-loading-skeleton.component';
 
 @Component({
   selector: 'app-reports',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CurrencyPipe, DatePipe, MatSnackBarModule],
+  imports: [
+    CurrencyPipe,
+    DatePipe,
+    MatSnackBarModule,
+    DepositDataStatusComponent,
+    DepositLoadingSkeletonComponent,
+  ],
   templateUrl: './reports.component.html',
   styleUrl: './reports.component.scss',
 })
 export class ReportsComponent {
-  private readonly depositsService = inject(DepositsService);
+  readonly depositsService = inject(DepositsService);
   private readonly snackBar = inject(MatSnackBar);
   readonly deposits = this.depositsService.deposits;
 
@@ -26,6 +34,7 @@ export class ReportsComponent {
       'Start date',
       'Maturity date',
       'Account',
+      'Auto-renew at maturity',
       'Status',
     ];
     const rows = this.deposits().map((deposit) => [
@@ -36,6 +45,7 @@ export class ReportsComponent {
       deposit.startDate,
       deposit.maturityDate,
       deposit.accountNumber,
+      deposit.autoRenew ? 'Yes' : 'No',
       deposit.status,
     ]);
     const csv = [header, ...rows]

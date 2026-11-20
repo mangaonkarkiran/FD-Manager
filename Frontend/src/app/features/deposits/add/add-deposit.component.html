@@ -6,6 +6,8 @@
     </div>
   </header>
 
+  <app-deposit-data-status />
+
   <p class="add-deposit-intro">Track your investment and see its estimated growth at maturity.</p>
 
   <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
@@ -26,7 +28,7 @@
           </select>
         </label>
 
-        <label class="form-field form-field--full">Deposit amount
+        <label class="form-field">Deposit amount
           <span class="input-wrap"><span class="input-prefix">₹</span><input class="with-prefix" type="number" formControlName="principal" min="1000" max="100000000" inputmode="decimal" aria-label="Deposit amount"></span>
           @if (form.controls.principal.touched && form.controls.principal.invalid) { <small class="form-error">Enter an amount between ₹1,000 and ₹10 crore.</small> }
         </label>
@@ -45,12 +47,36 @@
           @if (form.hasError('invalidDateRange') && form.controls.maturityDate.touched) { <small class="form-error">Maturity date must be after the start date.</small> }
         </label>
 
-        <label class="form-field">Has nominee?
-          <select formControlName="hasNominee">
-            <option [ngValue]="false">No</option>
-            <option [ngValue]="true">Yes</option>
-          </select>
-        </label>
+        <div class="form-field form-field--full nominee-toggle">
+          <span class="auto-renew-copy">
+            <strong>Auto-renew at maturity</strong>
+            <small>Record your preference; arrange renewal with your bank.</small>
+          </span>
+          <button
+            type="button"
+            class="toggle-switch"
+            role="switch"
+            [class.on]="form.controls.autoRenew.value"
+            [attr.aria-checked]="form.controls.autoRenew.value"
+            aria-label="Auto-renew at maturity"
+            (click)="form.controls.autoRenew.setValue(!form.controls.autoRenew.value)">
+            <span></span>
+          </button>
+        </div>
+
+        <div class="form-field form-field--full nominee-toggle">
+          <span>Has nominee?</span>
+          <button
+            type="button"
+            class="toggle-switch"
+            role="switch"
+            [class.on]="form.controls.hasNominee.value"
+            [attr.aria-checked]="form.controls.hasNominee.value"
+            aria-label="Has nominee"
+            (click)="form.controls.hasNominee.setValue(!form.controls.hasNominee.value)">
+            <span></span>
+          </button>
+        </div>
 
         @if (form.controls.hasNominee.value) {
           <label class="form-field form-field--full">Nominee name

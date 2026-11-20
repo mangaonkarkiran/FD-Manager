@@ -9,6 +9,11 @@
     </a>
   </header>
 
+  <app-deposit-data-status [showLoading]="false" />
+
+  @if (depositsService.loading()) {
+    <app-deposit-loading-skeleton variant="maturity" />
+  } @else if (depositsService.loaded()) {
   <p class="maturity-intro">See what’s maturing next and plan month by month.</p>
 
   @if (nextMaturityMonth(); as nextMonth) {
@@ -89,5 +94,6 @@
         <svg><use href="#icon-plus"/></svg>Add fixed deposit
       </a>
     </div>
+  }
   }
 </section>

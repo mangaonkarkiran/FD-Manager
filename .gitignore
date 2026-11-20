@@ -1,0 +1,14 @@
+# Local configuration and credentials
+**/.env
+**/.env.*
+!**/.env.example
+/User postgres.txt
+/Backend/secrets/
+
+# Python
+/Backend/.venv/
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.mypy_cache/
+**/.ruff_cache/
